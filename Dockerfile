@@ -23,6 +23,9 @@ RUN apt-get update \
     && apt-get install nodejs \
     && apt-get install --no-install-recommends yarn
 
+ENV NEWMAN_VERSION 3.9.3
+RUN npm install -g newman@${NEWMAN_VERSION};
+
 ENV DISPLAY :99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
