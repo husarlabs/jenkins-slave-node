@@ -62,11 +62,11 @@ RUN usermod -aG docker jenkins
 
 # AWS
 RUN curl -O https://bootstrap.pypa.io/get-pip.py \
-    && python get-pip.py --user \
-    && export PATH=/home/jenkins/.local/bin:$PATH \
-    && chown -R jenkins /home/jenkins/.local \
-    && pip install awscli --upgrade --user
+    && python get-pip.py \
+    # && export PATH=/home/jenkins/.local/bin:$PATH \
+    && pip install awscli --upgrade
 
 ENV PATH /home/jenkins/.local/bin:$PATH
+RUN chown -R jenkins /home/jenkins/
 
 USER jenkins
