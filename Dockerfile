@@ -3,7 +3,7 @@ FROM jenkinsci/jnlp-slave
 USER root
 
 RUN apt-get update \
-    && apt-get install -y curl wget libxss1 libappindicator1 libindicator7 xvfb apt-transport-https build-essential \
+    && apt-get install -y curl wget libxss1 libappindicator1 libindicator7 xvfb apt-transport-https build-essential jq \
     && apt-get -y autoclean
 
 #Add yarn to apt
@@ -42,6 +42,7 @@ RUN wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz \
     && tar -xzvf go${GO_VERSION}.linux-amd64.tar.gz \
     && rm go${GO_VERSION}.linux-amd64.tar.gz \
     && mv go /usr/lib/go
+ENV GO111MODULE on
 
 ENV GOROOT=/usr/lib/go
 RUN chown -R jenkins ${GOROOT}
@@ -51,10 +52,6 @@ RUN mkdir /home/jenkins/go \
     && chown -R jenkins ${GOPATH}
 
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
-ADD go.pedge.zip ${GOPATH}/src/
-RUN unzip -q go/src/go.pedge.zip -d /var/ \
-    && rm go/src/go.pedge.zip
 
 # docker
 RUN curl -fsSL get.docker.com | bash
