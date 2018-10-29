@@ -3,7 +3,7 @@ FROM jenkinsci/jnlp-slave
 USER root
 
 RUN apt-get update \
-    && apt-get install -y curl wget libxss1 libappindicator1 libindicator7 xvfb apt-transport-https build-essential \
+    && apt-get install -y curl wget libxss1 libappindicator1 libindicator7 xvfb apt-transport-https build-essential jq \
     && apt-get -y autoclean
 
 #Add yarn to apt
